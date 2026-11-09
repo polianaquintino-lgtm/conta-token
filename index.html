@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Tokens - Alura</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #151525;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: #24243a;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            color: #a970ff;
+        }
+
+        .resultado {
+            background: #343450;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+
+        button {
+            background: #9147ff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #702de0;
+        }
+
+        .numero {
+            color: #b995ff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Contador de Tokens</h1>
+        <p>Desafio Alura - Comparação de Prompts</p>
+
+        <div class="resultado">
+            <h2>Teste 1 - Prompt Curto</h2>
+            <p>Explique o que é inteligência artificial.</p>
+            <p>Tokens de entrada: <span id="entrada1" class="numero">0</span></p>
+            <p>Tokens de saída: <span id="saida1" class="numero">0</span></p>
+            <p>Total: <span id="total1" class="numero">0</span></p>
+        </div>
+
+        <div class="resultado">
+            <h2>Teste 2 - Prompt Detalhado</h2>
+            <p>Explique o que é inteligência artificial,
+            como funciona, suas vantagens, desvantagens
+            e aplicações no dia a dia.</p>
+            <p>Tokens de entrada: <span id="entrada2" class="numero">0</span></p>
+            <p>Tokens de saída: <span id="saida2" class="numero">0</span></p>
+            <p>Total: <span id="total2" class="numero">0</span></p>
+        </div>
+
+        <button onclick="executar()">Executar comparação</button>
+
+        <h2>Resultado da comparação</h2>
+        <p id="comparacao">Clique no botão para começar.</p>
+
+        <h3>Conclusão</h3>
+        <p>
+            Prompts mais detalhados geralmente consomem mais tokens,
+            pois possuem mais informações de entrada e podem gerar
+            respostas maiores.
+        </p>
+    </div>
+
+    <script>
+        function contarTokens(texto) {
+            // Estimativa simples: aproximadamente 1 token
+            // para cada 4 caracteres.
+            return Math.ceil(texto.length / 4);
+        }
+
+        function executar() {
+            let prompt1 = "Explique o que é inteligência artificial.";
+            let resposta1 = "Inteligência artificial permite que máquinas realizem tarefas inteligentes.";
+
+            let prompt2 = "Explique o que é inteligência artificial, como funciona, suas vantagens, desvantagens e aplicações no dia a dia.";
+            let resposta2 = "A inteligência artificial permite que máquinas aprendam, analisem informações e tomem decisões. Ela é usada em assistentes virtuais, aplicativos e carros autônomos. Suas vantagens são rapidez e automação, mas também existem custos e riscos de erros.";
+
+            let entrada1 = contarTokens(prompt1);
+            let saida1 = contarTokens(resposta1);
+
+            let entrada2 = contarTokens(prompt2);
+            let saida2 = contarTokens(resposta2);
+
+            document.getElementById("entrada1").innerText = entrada1;
+            document.getElementById("saida1").innerText = saida1;
+            document.getElementById("total1").innerText = entrada1 + saida1;
+
+            document.getElementById("entrada2").innerText = entrada2;
+            document.getElementById("saida2").innerText = saida2;
+            document.getElementById("total2").innerText = entrada2 + saida2;
+
+            let total1 = entrada1 + saida1;
+            let total2 = entrada2 + saida2;
+
+            document.getElementById("comparacao").innerText =
+                total2 > total1
+                ? "O prompt detalhado consumiu mais tokens!"
+                : "O prompt curto consumiu mais tokens!";
+        }
+    </script>
+
+</body>
+</html>
